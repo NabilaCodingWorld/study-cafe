@@ -1,5 +1,7 @@
 import PropTypes from "prop-types";
-const Blog = ({ blog }) => {
+import { LuBookMarked } from "react-icons/lu";
+
+const Blog = ({ id, blog, handleBookMark, handleMarkAsRead }) => {
   const {
     cover,
     author_img,
@@ -22,8 +24,11 @@ const Blog = ({ blog }) => {
         </div>
 
         <div>
-          <p className="text-gray-400">
-            <span>{reading_time}</span> min read
+          <p className="text-gray-400 ">
+            <span className="mr-2">{reading_time}min read</span>
+            <button onClick={() => handleBookMark(blog)}>
+              <LuBookMarked />
+            </button>
           </p>
         </div>
       </div>
@@ -35,7 +40,12 @@ const Blog = ({ blog }) => {
           <span key={idx}> &nbsp;&nbsp;#{hash}</span>
         ))}
       </p>
-      <p className="mb-7 text-blue-700">Mark as read</p>
+      <button
+        onClick={() => handleMarkAsRead(id, reading_time)}
+        className="mb-7 text-blue-700"
+      >
+        Mark as read
+      </button>
       <br />
     </div>
   );
@@ -43,6 +53,8 @@ const Blog = ({ blog }) => {
 
 Blog.propTypes = {
   blog: PropTypes.object.isRequired,
+  handleBookMark: PropTypes.func,
+  handleMarkAsRead: PropTypes.func,
 };
 
 export default Blog;
